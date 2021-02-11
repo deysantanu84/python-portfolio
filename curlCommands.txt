@@ -1,0 +1,56 @@
+# https://docs.github.com/en/rest/reference/users#get-the-authenticated-user
+# https://stackoverflow.com/questions/3044315/how-to-set-the-authorization-header-using-curl
+
+cred="$( echo $NAME:$PASSWORD | base64 )""
+curl -u "deysantanu84" -H "Authorization: Basic $cred" https://api.github.com
+curl -I https://api.github.com -u foo:bar
+curl -i https://api.github.com -u valid_username:valid_token
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user
+curl -X PATCH -H "Accept: application/vnd.github.v3+json" https://api.github.com/user -d '{"name":"name"}'
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users/deysantanu84
+curl -u username:token https://api.github.com/users/deysantanu84/hovercard?subject_type=repository&subject_id=1300192
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users/deysantanu84/hovercard
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/blocks
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/blocks/USERNAME
+curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/blocks/USERNAME
+curl -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/blocks/USERNAME
+curl -X PATCH -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/email/visibility \
+  -d '{"email":"deysantanu84@github.com","visibility":"visibility"}'
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/emails
+curl -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/emails \
+  -d '{"emails":["deysantanu84@github.com"]}'
+curl -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/emails \
+  -d '{"emails":["deysantanu84@github.com"]}'
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/public_emails
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/followers
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/following
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/following/USERNAME
+curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/following/USERNAME
+curl -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/following/USERNAME
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users/deysantanu84/followers
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users/deysantanu84/following
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users/deysantanu84/following/TARGET_USER
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/keys
+curl -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/keys -d '{"key":"key"}'
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/keys/42
+curl -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/keys/42
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users/deysantanu84/keys
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/gpg_keys
+curl -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/gpg_keys \
+  -d '{"armored_public_key":"armored_public_key"}'
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/gpg_keys/42
+curl -X DELETE -H "Accept: application/vnd.github.v3+json" https://api.github.com/user/gpg_keys/42
+curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/users/deysantanu84/gpg_keys
+
+====================================================================
+Status codes
+====================================================================
+Status: 200 OK
+Status: 201 Created
+Status: 204 No Content
+Status: 304 Not Modified
+Status: 401 Unauthorized
+Status: 403 Forbidden
+Status: 404 Not Found
+Status: 422 Unprocessable Entity
