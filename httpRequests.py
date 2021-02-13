@@ -9,6 +9,7 @@
 
 from getpass import getpass
 import requests
+from requests.auth import AuthBase, HTTPBasicAuth
 from requests.exceptions import HTTPError
 
 ##########################################################################
@@ -213,5 +214,21 @@ print(response.request.body)
 # then the response lists public and private profile information.
 # If the authenticated user is authenticated through OAuth without the user scope,
 # then the response lists only public profile information.
+# https://en.wikipedia.org/wiki/Basic_access_authentication
 print(requests.get('https://api.github.com/user', auth=('username',
                                                         getpass(prompt='Password: ', stream=None))))
+print(requests.get('https://api.github.com/user', auth=HTTPBasicAuth('username', getpass())))
+
+
+class TokenAuth(AuthBase):
+    """Implements a custom authentication scheme."""
+    def __init__(self, token):
+        self.token = token
+
+    def __call__(self, r):
+        """Attach an API token to a custom auth header."""
+        r.headers['X-TokenAuth'] = f'{self.token}'  # Python 3.6+
+        return r
+
+
+requests.get('https://httpbin.org/get', auth=TokenAuth('12345abcde-token'))
