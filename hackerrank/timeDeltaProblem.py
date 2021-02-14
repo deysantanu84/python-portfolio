@@ -1,4 +1,4 @@
-# https://www.hackerrank.com/challenges/python-time-delta/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
+# https://www.hackerrank.com/challenges/python-time-delta/problem
 
 from datetime import datetime
 
