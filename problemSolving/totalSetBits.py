@@ -2,6 +2,7 @@
 # in the binary representation of all the numbers from 1 to A.
 # Return the count modulo 10^9 + 7
 # https://www.geeksforgeeks.org/count-total-set-bits-in-all-numbers-from-1-to-n/
+# https://www.geeksforgeeks.org/count-total-set-bits-in-all-numbers-from-1-to-n-set-2/
 def getLeftmostBit(n):
     m = 0
     while n > 1:
@@ -62,7 +63,7 @@ def countSetBits2(A):
     return result % (10 ** 7)
 
 
-def countTotalSetBits(A):
+def countTotalSetBits3(A):
     totalBits = 0
     for item in range(1, A+1):
         bits = 0
@@ -72,9 +73,23 @@ def countTotalSetBits(A):
         totalBits += bits
         print(item, bits, totalBits)
 
-    return totalBits % (10**7)
+    return totalBits % (10**9 + 7)
 
 
-# print(countTotalSetBits(3))
-# print(countTotalSetBits(1))
-print(countSetBits2(3))
+def countTotalSetBits(A):
+    A += 1
+    i = 2
+    result = A // 2
+    while i <= A:
+        totalPairs = A // i
+        result += (totalPairs // 2) * i
+        if totalPairs & 1:
+            result += (A % i)
+        else:
+            result += 0
+        i <<= 1
+    return result % (10**9 + 7)
+
+
+print(countTotalSetBits(3))
+print(countTotalSetBits(1))

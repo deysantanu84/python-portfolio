@@ -9,7 +9,6 @@
 # If there are multiple solutions with the minimum index2, choose the one with minimum index1 out of them.
 # Input: [2, 7, 11, 15], target=9
 # Output: index1 = 1, index2 = 2
-# *** TLE ***
 import sys
 INT_MAX = sys.maxsize - 1
 
