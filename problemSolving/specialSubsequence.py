@@ -12,5 +12,5 @@ def specialSubsequenceAG(A):
     return count % (10**9 + 7)
 
 
-print(specialSubsequenceAG("ABCGAG"))
-print(specialSubsequenceAG("GAB"))
+print(specialSubsequenceAG("ABCGAG"))  # 3
+print(specialSubsequenceAG("GAB"))  # 0

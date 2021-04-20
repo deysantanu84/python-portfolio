@@ -30,16 +30,19 @@ def evaluateExpression(expression, a, b, c=None):
     # Convert ! in expression to not
     if '!' in expression:
         expression = expression.replace('!', 'not')
-
+    print(expression)
     # If all arguments a, b, c are part of the expression
     if c:
-        return eval(expression, {'a': a, 'b': b, 'c': c})
+        # return eval(expression, {'a': a, 'b': b, 'c': c})
+        return expression
 
     # If only arguments a and b are part of the expression
     else:
-        return eval(expression, {'a': a, 'b': b})
+        # return eval(expression, {'a': a, 'b': b})
+        return int(expression)
 
 
+# https://www.tutorialspoint.com/program-to-evaluate-one-mathematical-expression-without-built-in-functions-in-python
 # Test Cases
 class evaluatorTests(unittest.TestCase):
     def testCase1(self):
@@ -92,4 +95,5 @@ class evaluatorTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
+    print(evaluateExpression(a=1, b=6, expression='(a < 4) && (b > 3)'))
