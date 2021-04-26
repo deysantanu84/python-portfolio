@@ -14,5 +14,5 @@ def longestConsecutiveSequence(A):
     return result
 
 
-print(longestConsecutiveSequence([100, 4, 200, 1, 3, 2]))
-print(longestConsecutiveSequence([2, 1]))
+print(longestConsecutiveSequence([100, 4, 200, 1, 3, 2]))  # 4
+print(longestConsecutiveSequence([2, 1]))  # 2
