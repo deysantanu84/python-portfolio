@@ -1,5 +1,7 @@
 # Given a array A of non negative integers, arrange them such that they form the largest number.
 # Note: The result may be very large, so you need to return a string instead of an integer.
+# 1 <= len(A) <= 100000
+# 0 <= A[i] <= 2*10^9
 # https://www.geeksforgeeks.org/given-an-array-of-numbers-arrange-the-numbers-to-form-the-biggest-number/#:~:text=Given%20an%20array%20of%20numbers,998764543431%20gives%20the%20largest%20value.
 # https://www.geeksforgeeks.org/arrange-given-numbers-form-biggest-number-set-2/
 from itertools import permutations

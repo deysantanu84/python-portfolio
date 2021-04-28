@@ -1,6 +1,8 @@
 # You are given an array A of N elements.
 # You have to make all elements unique, to do so in one step you can increase any number by one.
 # Find the minimum number of steps.
+# 1 <= N <= 10^5
+# 1 <= A[i] <= 10^9
 def uniqueElements(A):
     count = 0
     A.sort(reverse=True)
