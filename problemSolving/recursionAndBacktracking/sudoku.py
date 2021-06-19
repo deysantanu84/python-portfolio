@@ -1,73 +1,68 @@
 # Write a program to solve a Sudoku puzzle by filling the empty cells.
 # Empty cells are indicated by the character '.'
 # You may assume that there will be only one unique solution.
-def printResult(A):
-    for i in range(9):
-        for j in range(9):
-            print(A[i][j], end='')
-        print()
+class Solution:
+    def solveSudoku(self, A):
+        n = len(A)
+        rows = [set() for _ in range(n)]
+        cols = [set() for _ in range(n)]
+        grids = [set() for _ in range(n)]
+
+        def addValueToBoard(row, col, val):
+            rows[row].add(val)
+            cols[col].add(val)
+            grids[(row // 3) * 3 + (col // 3)].add(val)
+            A[row][col] = str(val)
+
+        def removeValueFromBoard(row, col, val):
+            rows[row].remove(val)
+            cols[col].remove(val)
+            grids[(row // 3) * 3 + (col // 3)].remove(val)
+            A[row][col] = "."
+
+        def fillBoard(row, col, board):
+
+            if row < 0 or col < 0 or row >= n or col >= n:
+                return
+
+            while not board[row][col] == '.':
+                col += 1
+                if col == 9:
+                    col, row = 0, row + 1
+                if row == 9:
+                    return True
+
+            for val in range(1, n + 1):
+                if val in rows[row] or val in cols[col] or val in grids[(row // 3) * 3 + (col // 3)]:
+                    continue
+
+                addValueToBoard(row, col, val)
+
+                if fillBoard(row, col, board):
+                    return board
+
+                removeValueFromBoard(row, col, val)
+
+        for i in range(n):
+            for j in range(n):
+                if not A[i][j] == ".":
+                    addValueToBoard(i, j, int(A[i][j]))
+
+        return fillBoard(0, 0, A)
 
 
-def isEmptyLocation(arr, temp):
-    for row in range(9):
-        for col in range(9):
-            if arr[row][col] == 0:
-                temp[0] = row
-                temp[1] = col
-                return True
-    return False
-
-
-def checkRow(arr, row, num):
-    for i in range(9):
-        if arr[row][i] == num:
-            return True
-    return False
-
-
-def checkColumn(arr, col, num):
-    for i in range(9):
-        if arr[i][col] == num:
-            return True
-    return False
-
-
-def checkBox(arr, row, col, num):
-    for i in range(3):
-        for j in range(3):
-            if arr[i + row][j + col] == num:
-                return True
-    return False
-
-
-def isValidLocation(arr, row, col, num):
-    return not checkRow(arr, row, num) \
-           and not checkColumn(arr, col, num) \
-           and not checkBox(arr, row - row % 3, col - col % 3, num)
-
-
-def sudoku(A):
-    temp = [0, 0]
-    if not isEmptyLocation(A, temp):
-        return True
-    row = temp[0]
-    col = temp[1]
-
-    for i in range(1, 10):
-        if isValidLocation(A, row, col, i):
-            A[row][col] = i
-            if sudoku(A):
-                printResult(A)
-            A[row][col] = 0
-    return False
-
-
-print(sudoku([[3, 0, 6, 5, 0, 8, 4, 0, 0],
-            [5, 2, 0, 0, 0, 0, 0, 0, 0],
-            [0, 8, 7, 0, 0, 0, 0, 3, 1],
-            [0, 0, 3, 0, 1, 0, 0, 8, 0],
-            [9, 0, 0, 8, 6, 3, 0, 0, 5],
-            [0, 5, 0, 0, 9, 0, 6, 0, 0],
-            [1, 3, 0, 0, 0, 0, 2, 5, 0],
-            [0, 0, 0, 0, 0, 0, 0, 7, 4],
-            [0, 0, 5, 2, 0, 6, 3, 0, 0]]))
+obj = Solution()
+print(obj.solveSudoku([["5", "3", ".", ".", "7", ".", ".", ".", "."], ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+                 [".", "9", "8", ".", ".", ".", ".", "6", "."], ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+                 ["4", ".", ".", "8", ".", "3", ".", ".", "1"], ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+                 [".", "6", ".", ".", ".", ".", "2", "8", "."], [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+                 [".", ".", ".", ".", "8", ".", ".", "7", "9"]]))
+# [['5', '3', '4', '6', '7', '8', '9', '1', '2'],
+# ['6', '7', '2', '1', '9', '5', '3', '4', '8'],
+# ['1', '9', '8', '3', '4', '2', '5', '6', '7'],
+# ['8', '5', '9', '7', '6', '1', '4', '2', '3'],
+# ['4', '2', '6', '8', '5', '3', '7', '9', '1'],
+# ['7', '1', '3', '9', '2', '4', '8', '5', '6'],
+# ['9', '6', '1', '5', '3', '7', '2', '8', '4'],
+# ['2', '8', '7', '4', '1', '9', '6', '3', '5'],
+# ['3', '4', '5', '2', '8', '6', '1', '7', '9']]

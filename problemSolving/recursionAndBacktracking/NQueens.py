@@ -7,56 +7,55 @@
 # First argument is an integer n denoting the size of chessboard
 # Return an array consisting of all distinct solutions in which each element
 # is a 2d char array representing a unique solution.
-result = []
+def isValid(board, rowIndex, colIndex, memo):
+    if memo['row'][rowIndex]:
+        return False
 
+    if memo['col'][colIndex]:
+        return False
 
-def isValid(board, row, col):
-    for i in range(col):
-        if board[row][i]:
-            return False
-    i = row
-    j = col
-    while i >= 0 and j >= 0:
-        if board[i][j]:
-            return False
-        i -= 1
-        j -= 1
-    i = row
-    j = col
-    while j >= 0 and i < 4:
-        if board[i][j]:
-            return False
-        i = i + 1
-        j = j - 1
+    if memo['diagonal'][len(board) - 1 + rowIndex - colIndex]:
+        return False
+
+    if memo['reverse'][rowIndex + colIndex]:
+        return False
+
     return True
 
 
-def placeNQueens(A, board, col):
-    if col == A:
-        v = []
-        for i in board:
-            for j in range(len(i)):
-                if i[j] == 1:
-                    v.append(j+1)
-        result.append(v)
-        return True
-
-    res = False
+def placeNQueens(A, currentRow, board, memo, result):
+    if currentRow == A:
+        result.append(["".join(row) for row in board])
+        return
     for i in range(A):
-        if isValid(board, i, col):
-            board[i][col] = 1
-            res = placeNQueens(A, board, col + 1) or res
-            board[i][col] = 0
-    return res
+        board[currentRow][i] = 'Q'
+        if isValid(board, currentRow, i, memo):
+            memo['row'][currentRow] = True
+            memo['col'][i] = True
+            memo['diagonal'][A - 1 + currentRow - i] = True
+            memo['reverse'][currentRow + i] = True
+
+            placeNQueens(A, currentRow + 1, board, memo, result)
+
+            memo['diagonal'][A - 1 + currentRow - i] = False
+            memo['reverse'][currentRow + i] = False
+            memo['col'][i] = False
+            memo['row'][currentRow] = False
+        board[currentRow][i] = '.'
 
 
 def NQueens(A):
-    result.clear()
-    board = [[0 for _ in range(A)]
-			for _ in range(A)]
-    placeNQueens(A, board, 0)
-    result.sort()
+    memo = {
+        'row': [False] * A,
+        'col': [False] * A,
+        'diagonal': [False] * (2 * A - 1),
+        'reverse': [False] * (2 * A - 1)
+    }
+    board = [['.'] * A for _ in range(A)]
+    result = []
+    placeNQueens(A, 0, board, memo, result)
     return result
 
 
-print(NQueens(4))
+print(NQueens(4))  # [['.Q..', '...Q', 'Q...', '..Q.'], ['..Q.', 'Q...', '...Q', '.Q..']]
+print(NQueens(1))  # [['Q']]

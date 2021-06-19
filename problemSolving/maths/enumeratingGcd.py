@@ -26,3 +26,4 @@ def enumerateGcd(A, B):
 
 
 print(enumerateGcd('1', '3'))  # '1'
+print(enumerateGcd('100', '100000'))  # '1'

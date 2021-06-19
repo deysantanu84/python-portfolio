@@ -13,7 +13,7 @@ def changeCharacter(A, B):
         charSet.add(i)
 
     i = 0
-    while B > 0:
+    # while B > 0:
 
     return len(charSet)
 

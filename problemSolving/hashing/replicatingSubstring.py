@@ -8,6 +8,7 @@
 # All the alphabets of S are lower case (a - z)
 # Your function should return 1 if it is possible to re-arrange the characters of the string B
 # so that it can be represented as a concatenation of A similar strings. If it is not, return -1.
+# https://www.geeksforgeeks.org/reorder-the-given-string-to-form-a-k-concatenated-string/
 def replicatingSubstring(A, B):
     N = len(B)
     freqDict = {}
@@ -33,4 +34,4 @@ def replicatingSubstring(A, B):
 
 
 print(replicatingSubstring(2, 'bbaabb'))  # 1
-# print(replicatingSubstring(1, 'bc'))  # 1
+print(replicatingSubstring(1, 'bc'))  # 1

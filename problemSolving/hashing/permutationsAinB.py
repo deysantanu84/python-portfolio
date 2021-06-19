@@ -1,6 +1,7 @@
 # You are given two strings A and B of size N and M respectively.
 # You have to find the count of all permutations of A present in B as a substring.
 # You can assume a string will have only lowercase letters.
+# 1 <= N < M <= 10^5
 # A = "abc", B = "abcbacabc" ---> 5
 # A = "aca", B = "acaa" ---> 2
 def isMatch(P, Q):
@@ -29,5 +30,34 @@ def substringPermutations(A, B):
     return count
 
 
-print(substringPermutations("abc", "abcbacabc"))  # 5
-print(substringPermutations("aca", "acaa"))  # 2
+def permutationsOfAInB(A, B):
+    N = len(A)
+    M = len(B)
+    count = 0
+
+    hashSumA = 0
+    hashSumB = 0
+
+    if N > M:
+        return 0
+
+    for i in range(N):
+        hashSumB += hash(B[i])
+        hashSumA += hash(A[i])
+
+    if hashSumB == hashSumA:
+        count += 1
+
+    for i in range(N, M):
+        hashSumB += hash(B[i]) - hash(B[i - N])
+
+        if hashSumB == hashSumA:
+            count += 1
+
+    return count
+
+
+# print(substringPermutations("abc", "abcbacabc"))  # 5
+print(permutationsOfAInB("abc", "abcbacabc"))  # 5
+# print(substringPermutations("aca", "acaa"))  # 2
+print(permutationsOfAInB("aca", "acaa"))  # 2

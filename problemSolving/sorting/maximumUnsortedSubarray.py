@@ -19,13 +19,10 @@ def maxUnsortedSubarray(A):
             start = i
             break
 
-    while end > 0 and A[end] == A[end - 1]:
-        end -= 1
-
-    for i in range(end, 0, -1):
-        if A[i] <= A[i - 1]:
-            end = i
+    while end > 0:
+        if A[end] < A[end - 1]:
             break
+        end -= 1
 
     subArrayMax = A[start]
     subArrayMin = A[start]
@@ -41,12 +38,14 @@ def maxUnsortedSubarray(A):
             start = i
             break
 
-    for i in range(N - 1, end + 1, -1):
+    i = N - 1
+    while i >= end + 1:
         if A[i] < subArrayMax:
             end = i
             break
+        i -= 1
 
-    if start == 0 and end == N - 1 or start == end:
+    if start == end:
         return [-1]
 
     return [start, end]
@@ -60,3 +59,4 @@ print(maxUnsortedSubarray([4, 15, 4, 4, 15, 18, 20]))  # [1, 3]
 print(maxUnsortedSubarray([3, 3, 4, 5, 5, 9, 11, 13, 14, 15, 15, 16, 15, 20, 16]))  # [11, 14]
 print(maxUnsortedSubarray([1, 1, 10, 10, 15, 10, 15, 10, 10, 15, 10, 15]))  # [4, 10]
 print(maxUnsortedSubarray([1, 1, 2, 3, 3, 4, 8, 9, 11, 9, 11, 12, 12, 11, 9, 14, 19, 20, 20]))  # [8, 14]
+print(maxUnsortedSubarray([16, 6, 18, 17, 13, 6, 18, 16, 6, 15, 15, 18, 16, 13, 16, 16, 6, 18, 15, 15]))  # [0, 19]
