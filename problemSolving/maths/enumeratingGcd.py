@@ -25,5 +25,17 @@ def enumerateGcd(A, B):
     return str(gcd)
 
 
-print(enumerateGcd('1', '3'))  # '1'
-print(enumerateGcd('100', '100000'))  # '1'
+class Solution:
+    # @param A : string
+    # @param B : string
+    # @return a strings
+    def solve(self, A, B):
+        if A == B:
+            return A
+        else:
+            return "1"
+
+
+sol = Solution()
+print(sol.solve('1', '3'))  # '1'
+print(sol.solve('100', '100000'))  # '1'

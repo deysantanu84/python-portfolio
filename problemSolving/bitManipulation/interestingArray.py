@@ -7,7 +7,14 @@
 # 1 <= A[i] <= 10^6
 # Return "Yes" if it is possible otherwise return "No".
 def interestingArray(A):
-    pass
+    temp = 0
+    for i in range(len(A)):
+        temp ^= A[i]
+
+    if temp % 2 == 0:
+        return "Yes"
+    else:
+        return "No"
 
 
 print(interestingArray([9, 17]))  # Yes

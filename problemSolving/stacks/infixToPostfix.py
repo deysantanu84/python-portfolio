@@ -7,44 +7,36 @@
 # / and * have equal precedence but greater than + and -.
 # + and - have equal precedence and lowest precedence among given operators.
 # 1 <= length of the string <= 500000
-class Conversion:
-    def __init__(self):
-        self.stack = []
-        self.result = []
-        self.precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
-
-
 def infixToPostfix(A):
-    stack = []
-    result = []
-    operatorPrecedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    stack = ['N']
+    result = ''
+    N = len(A)
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '(': -1, ')': -1}
 
-    for ch in A:
-        if ch.isalpha():
-            result.append(ch)
+    for i in range(N):
+        if 'a' <= A[i] <= 'z' or 'A' <= A[i] <= 'Z':
+            result += A[i]
 
-        elif ch == '(':
-            stack.append(ch)
+        elif A[i] == '(':
+            stack.append('(')
 
-        elif ch == ')':
-            while len(stack) and stack[-1] != '(':
-                result.append(stack.pop())
+        elif A[i] == ')':
+            while stack[-1] != 'N' and stack[-1] != '(':
+                result += stack.pop()
 
-            if len(stack) and stack[-1] != '(':
-                return -1
-            else:
+            if stack[-1] == '(':
                 stack.pop()
 
         else:
-            while len(stack) and operatorPrecedence[ch] <= operatorPrecedence[stack[-1]]:
-                result.append(stack.pop())
+            while stack[-1] != 'N' and precedence[A[i]] <= precedence[stack[-1]]:
+                result += stack.pop()
 
-            stack.append(ch)
+            stack.append(A[i])
 
-    while len(stack):
-        result.append(stack.pop())
+    while stack[-1] != 'N':
+        result += stack.pop()
 
-    return "".join(result)
+    return result
 
 
 print(infixToPostfix("x^y/(a*z)+b"))  # "xy^az*/b+"

@@ -6,6 +6,8 @@
 # Either of the number becomes 0.
 # Find the sum of the final values of P and Q.
 # 0 <= P,Q <= 1e9
+
+
 # TLE
 def repeatedSubtraction(A, B):
     while A != B and A != 0 and B != 0:
@@ -17,4 +19,30 @@ def repeatedSubtraction(A, B):
     return A + B
 
 
+def util(A, B):
+    if not B:
+        return A + A
+
+    if A == B:
+        return A + B
+
+    return util(B, A % B)
+
+
+def getFinal(A, B):
+    if not A:
+        return B
+
+    if not B:
+        return A
+
+    if A > B:
+        return util(A, B)
+
+    else:
+        return util(B, A)
+
+
 print(repeatedSubtraction(5, 15))  # 10
+print(getFinal(5, 15))  # 10
+print(getFinal(5, 10))  # 10

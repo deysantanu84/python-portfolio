@@ -4,61 +4,56 @@
 # 0 <= number of nodes <= 10^5
 # First and only argument is a pointer to the root node of binary tree, A.
 # Return a 2D array denoting the vertical order traversal of tree as shown.
-from collections import OrderedDict
-
-
 class TreeNode:
-	def __init__(self, x):
-		self.val = x
-		self.left = None
-		self.right = None
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
 class Solution:
-	# @param A : root node of tree
-	# @return a list of list of integers
-	def verticalOrderTraversal(self, A):
-		if not A:
-			return
+    # @param A : root node of tree
+    # @return a list of list of integers
+    def verticalOrderTraversal(self, A):
+        if not A:
+            return
 
-		queue = []
-		nodeMap = {}
-		horizontalDistanceMap = {}
+        result = []
+        queue = [A]
+        distDict = {A: 0}
+        nodeDict = {0: [A.val]}
+        minDist = 0
+        maxDist = 0
 
-		queue.append(A)
-		horizontalDistanceMap[A] = 0
-		nodeMap[0] = [A.val]
+        while len(queue):
+            temp = queue.pop(0)
 
-		while len(queue) > 0:
-			temp = queue.pop(0)
+            if temp.left:
+                queue.append(temp.left)
+                distDict[temp.left] = distDict[temp] - 1
+                dist = distDict[temp.left]
+                if dist < minDist:
+                    minDist = dist
 
-			if temp.left:
-				queue.append(temp.left)
-				horizontalDistanceMap[temp.left] = horizontalDistanceMap[temp] - 1
-				horizontalDistance = horizontalDistanceMap[temp.left]
+                if dist not in nodeDict:
+                    nodeDict[dist] = []
+                nodeDict[dist].append(temp.left.val)
 
-				if horizontalDistance not in nodeMap:
-					nodeMap[horizontalDistance] = []
+            if temp.right:
+                queue.append(temp.right)
+                distDict[temp.right] = distDict[temp] + 1
+                dist = distDict[temp.right]
+                if dist > maxDist:
+                    maxDist = dist
 
-				nodeMap[horizontalDistance].append(temp.left.val)
+                if dist not in nodeDict:
+                    nodeDict[dist] = []
+                nodeDict[dist].append(temp.right.val)
 
-			if temp.right:
-				queue.append(temp.right)
-				horizontalDistanceMap[temp.right] = horizontalDistanceMap[temp] + 1
-				horizontalDistance = horizontalDistanceMap[temp.right]
+        for dist in range(minDist, maxDist + 1):
+            result.append(nodeDict[dist])
 
-				if horizontalDistance not in nodeMap:
-					nodeMap[horizontalDistance] = []
-
-				nodeMap[horizontalDistance].append(temp.right.val)
-
-		sortedMap = OrderedDict(sorted(nodeMap.items()))
-
-		result = []
-		for i in sortedMap.values():
-			result.append(i)
-
-		return result
+        return result
 
 
 binaryTree = Solution()
@@ -76,3 +71,7 @@ T.left.left = TreeNode(2)
 T.right = TreeNode(7)
 T.right.right = TreeNode(9)
 print(binaryTree.verticalOrderTraversal(T))  # [[2], [3], [1], [7], [9]]
+
+T = TreeNode(8262)
+T.right = TreeNode(411)
+print(binaryTree.verticalOrderTraversal(T))  # [[8262], [411]]
