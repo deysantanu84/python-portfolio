@@ -12,10 +12,37 @@ from math import log
 
 
 class Solution:
+    def highestPowerOf5(self, A):
+        temp = int(log(A, 5))
+        return 5 ** temp
+
     # @param A : integer
     # @return an integer
     def solve(self, A):
-        pass
+        result = 0
+        denominations = []
+        highest = self.highestPowerOf5(A)
+
+        i = 0
+        while True:
+            temp = 5 ** i
+            if temp <= highest:
+                denominations.append(temp)
+            else:
+                break
+
+            i += 1
+
+        N = len(denominations)
+        i = N - 1
+        while i >= 0:
+            while A >= denominations[i]:
+                A -= denominations[i]
+                result += 1
+
+            i -= 1
+
+        return result
 
 
 sol = Solution()

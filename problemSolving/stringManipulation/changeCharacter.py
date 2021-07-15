@@ -8,14 +8,24 @@
 # We can change both 'a' and one 'd' into 'b'.So the new string becomes "bbcbbbccb".
 # So the minimum number of distinct character will be 2.
 def changeCharacter(A, B):
-    charSet = set()
-    for i in A:
-        charSet.add(i)
+    charCount = {}
+    for char in A:
+        if char not in charCount:
+            charCount[char] = 0
+        charCount[char] += 1
 
-    i = 0
-    # while B > 0:
+    counts = sorted(charCount.values())
+    result = len(counts)
 
-    return len(charSet)
+    for i in range(len(counts) - 1):
+        if counts[i] <= B:
+            B -= counts[i]
+            result -= 1
+
+        else:
+            break
+
+    return result
 
 
 print(changeCharacter("abcabbccd", 3))  # 2
