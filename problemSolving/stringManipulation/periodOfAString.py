@@ -4,12 +4,34 @@
 # First and only argument is a string A of length N.
 # Return an integer, denoting the period of the string.
 class Solution:
+    def util(self, string, M, lps):
+        length = 0
+        i = 1
+        lps[0] = 0
+
+        while i < M:
+            if string[i] == string[length]:
+                length += 1
+                lps[i] = length
+                i += 1
+            else:
+                if length:
+                    length = lps[length - 1]
+
+                else:
+                    lps[i] = 0
+                    i += 1
+
     # @param A : string
     # @return an integer
     def solve(self, A):
-        i = (A + A[::-1]).find(A, 1, -1)
-        print(i)
-        return None if i == -1 else len(A[:i])
+        N = len(A)
+        lps = [0] * N
+
+        self.util(A, N, lps)
+        length = lps[N - 1]
+
+        return N - length
 
 
 sol = Solution()

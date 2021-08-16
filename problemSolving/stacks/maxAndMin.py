@@ -7,25 +7,101 @@
 # Return the sum of values of all possible subarrays of A % 10^9+7.
 # TLE
 class Solution:
+    def leftSmallerNearest(self, A):
+        N = len(A)
+        result = [0 for _ in range(N)]
+        stack = []
+
+        for i in range(N):
+            while len(stack) and A[i] <= A[stack[-1]]:
+                stack.pop()
+
+            if not len(stack):
+                result[i] = -1
+
+            elif A[i] > A[stack[-1]]:
+                result[i] = stack[-1]
+
+            stack.append(i)
+
+        return result
+
+    def rightSmallerNearest(self, A):
+        N = len(A)
+        result = [0 for _ in range(N)]
+        stack = []
+
+        for i in range(N - 1, -1, -1):
+            while len(stack) and A[i] < A[stack[-1]]:
+                stack.pop()
+
+            if not len(stack):
+                result[i] = N
+
+            elif A[i] >= A[stack[-1]]:
+                result[i] = stack[-1]
+
+            stack.append(i)
+
+        return result
+
+    def leftLargerNearest(self, A):
+        N = len(A)
+        result = [0 for _ in range(N)]
+        stack = []
+
+        for i in range(N):
+            while len(stack) and A[i] >= A[stack[-1]]:
+                stack.pop()
+
+            if not len(stack):
+                result[i] = -1
+
+            elif A[i] < A[stack[-1]]:
+                result[i] = stack[-1]
+
+            stack.append(i)
+
+        return result
+
+    def rightLargerNearest(self, A):
+        N = len(A)
+        result = [0 for _ in range(N)]
+        stack = []
+
+        for i in range(N - 1, -1, -1):
+            while len(stack) and A[i] > A[stack[-1]]:
+                stack.pop()
+
+            if not len(stack):
+                result[i] = N
+
+            elif A[i] <= A[stack[-1]]:
+                result[i] = stack[-1]
+
+            stack.append(i)
+
+        return result
+
     # @param A : list of integers
     # @return an integer
     def solve(self, A):
         result = 0
         N = len(A)
+        leftSmallList = self.leftSmallerNearest(A)
+        rightSmallList = self.rightSmallerNearest(A)
+        leftLargeList = self.leftLargerNearest(A)
+        rightLargeList = self.rightLargerNearest(A)
 
-        for j in range(N):
-            increasing = []
-            decreasing = []
-            for i in range(j, N):
-                while len(increasing) and increasing[-1] >= A[i]:
-                    increasing.pop()
+        for i in range(N):
+            left1 = leftSmallList[i]
+            right1 = rightSmallList[i]
+            left2 = leftLargeList[i]
+            right2 = rightLargeList[i]
 
-                while len(decreasing) and decreasing[-1] <= A[i]:
-                    decreasing.pop()
-
-                decreasing.append(A[i])
-                increasing.append(A[i])
-                result += (decreasing[0] - increasing[0]) % (10**9 + 7)
+            tempMin = (i - left1) * (right1 - i)
+            tempMax = (i - left2) * (right2 - i)
+            result += A[i] * (tempMax - tempMin)
 
         return result % (10**9 + 7)
 

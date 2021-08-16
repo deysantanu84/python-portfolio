@@ -12,22 +12,37 @@ class Solution:
     # @return an integer
     def LBSlength(self, A):
         N = len(A)
-        invalidOpenBraces = 0
-        invalidCloseBraces = 0
+        if N < 2:
+            return 0
 
-        for index in range(N):
-            if A[index] == '(':
-                invalidOpenBraces += 1
+        result = 0
+        longest = [0 for _ in range(N)]
 
-            else:
-                if invalidOpenBraces == 0:
-                    invalidCloseBraces += 1
+        for i in range(1, N):
+            if A[i] == ')' or A[i] == ']' or A[i] == '}':
+                if ((A[i] == ']' and A[i - 1] == '[') or
+                        (A[i] == '}' and A[i - 1] == '{') or
+                        (A[i] == ')' and A[i - 1] == '(')):
+                    longest[i] = longest[i - 2] + 2
+                    result = max(result, longest[i])
+
                 else:
-                    invalidOpenBraces -= 1
+                    if (((i - longest[i - 1] - 1) >= 0) and
+                            ((A[i] == ']' and A[i - longest[i - 1] - 1] == '[') or
+                             (A[i] == '}' and A[i - longest[i - 1] - 1] == '{') or
+                             (A[i] == ')' and A[i - longest[i - 1] - 1] == '('))):
 
-        return N - (invalidOpenBraces + invalidCloseBraces)
+                        if (i - longest[i - 1] - 2) >= 0:
+                            longest[i] = longest[i-1] + 2 + longest[i-longest[i-1] - 2]
+                        else:
+                            longest[i] = longest[i-1] + 2
+
+                        result = max(result, longest[i])
+
+        return result
 
 
 sol = Solution()
 print(sol.LBSlength("[()]"))  # 4
 print(sol.LBSlength("[(])"))  # 0
+print(sol.LBSlength("([[]]()}[]([[]]([[]]))["))  # 14

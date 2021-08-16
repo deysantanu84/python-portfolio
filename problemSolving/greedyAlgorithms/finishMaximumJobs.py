@@ -8,26 +8,33 @@
 # First argument is an integer array A of size N denoting the start time of the jobs.
 # Second argument is an integer array B of size N denoting the finish time of the jobs.
 # Return an integer denoting the maximum number of jobs you can finish.
+class Job:
+    def __init__(self, start=0, finish=0):
+        self.start = start
+        self.finish = finish
+
+
 class Solution:
     # @param A : list of integers
     # @param B : list of integers
     # @return an integer
     def solve(self, A, B):
-        jobs = []
+        jobs = [Job() for _ in range(len(A))]
+
         for i in range(len(A)):
-            job = [A[i], B[i]]
-            jobs.append(job)
+            jobs[i] = Job(A[i], B[i])
 
-        jobs = sorted(jobs, key=lambda x: x[1])
-        visited = set()
+        jobs.sort(key=lambda x: x.finish)
+        result = 1
 
-        for start, end in jobs:
-            for task in range(start, end + 1):
-                if task not in visited:
-                    visited.add(task)
-                    break
+        previous = jobs[0]
+        for i in range(1, len(A)):
+            temp = jobs[i]
+            if temp.start >= previous.finish:
+                result += 1
+                previous = temp
 
-        return len(visited)
+        return result
 
 
 sol = Solution()

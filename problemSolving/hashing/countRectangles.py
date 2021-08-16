@@ -8,9 +8,30 @@
 # The first argument given is the integer array A.
 # The second argument given is the integer array B.
 # Return the number of unordered quadruplet that form a rectangle.
+from collections import defaultdict
+
+
 class Solution:
     # @param A : list of integers
     # @param B : list of integers
     # @return an integer
     def solve(self, A, B):
-        pass
+        N = len(A)
+        result = 0
+        setDict = defaultdict(set)
+
+        for i in range(N):
+            setDict[A[i]].add((B[i]))
+
+        for i in range(N - 1):
+            for j in range(i + 1, N):
+                if A[i] != A[j] and B[i] != B[j]:
+                    if B[j] in setDict[A[i]] and B[i] in setDict[A[j]]:
+                        result += 1
+
+        return result // 2
+
+
+sol = Solution()
+print(sol.solve([1, 1, 2, 2], [1, 2, 1, 2]))  # 1
+print(sol.solve([1, 1, 2, 2, 3, 3], [1, 2, 1, 2, 1, 2]))  # 3

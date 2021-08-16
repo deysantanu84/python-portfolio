@@ -13,3 +13,31 @@
 # A : "abb_c"
 # This implies S is "abb" and T is "c".
 # Output: P = "cbb"
+class Solution:
+    def sortT(self, T):
+        for i in range(len(T)):
+            for j in range(i + 1, len(T)):
+                if T[j] > T[i]:
+                    T[i], T[j] = T[j], T[i]
+
+    # @param A : string
+    # @return a strings
+    def getLargest(self, A):
+        aSplit = A.split("_")
+        S = list(aSplit[0])
+        T = list(aSplit[1])
+        self.sortT(T)
+
+        for i in range(len(T)):
+            for j in range(len(S)):
+                if S[j] < T[i]:
+                    S[j] = T[i]
+                    T[i] = ''
+
+        return ''.join(S)
+
+
+sol = Solution()
+print(sol.getLargest('abb_c'))  # 'cbb'
+print(sol.getLargest('xyzab_cd'))  # 'xyzdc'
+print(sol.getLargest('ittmcsvmoa_jktvvblefw'))  # 'wvvtlsvmok'

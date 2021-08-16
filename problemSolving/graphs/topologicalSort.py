@@ -22,32 +22,49 @@
 # that there is a edge directed from node B[i][0] to node B[i][1].
 # Return a one-dimensional array denoting the topological ordering of the graph and
 # if it doesn't exist then return empty array.
+from heapq import heappush, heappop
+
+
 class Solution:
-    def topologicalSortUtil(self, node, visited, stack, neighbours):
-        visited[node] = True
-
-        for neighbour in neighbours[node]:
-            if not visited[neighbour]:
-                self.topologicalSortUtil(neighbour, visited, stack, neighbours)
-
-        stack.append(node)
-
     # @param A : integer
     # @param B : list of list of integers
     # @return a list of integers
     def solve(self, A, B):
-        visited = [False] * (A + 1)
-        resultStack = []
+        result = []
+        edges = {}
+        for item in B:
+            if item[0] in edges.keys():
+                edges[item[0]].append(item[1])
+            else:
+                edges[item[0]] = [item[1]]
 
-        neighbours = {vertex + 1: [] for vertex in range(A)}
-        for edge in B:
-            neighbours[edge[0]].append(edge[1])
+        inEdges = [0 for _ in range(A + 1)]
+        for i in range(1, A + 1):
+            if i in edges.keys():
+                for node in edges[i]:
+                    inEdges[node] += 1
 
-        for node in range(1, A + 1):
-            if not visited[node - 1]:
-                self.topologicalSortUtil(node, visited, resultStack, neighbours)
+        minHeap = []
+        visited = [0 for _ in range(A + 1)]
+        for i in range(1, A + 1):
+            if inEdges[i] == 0:
+                heappush(minHeap, i)
+                visited[i] = 1
 
-        return resultStack[::-1]
+        while len(minHeap):
+            temp = minHeap[0]
+            heappop(minHeap)
+            result.append(temp)
+
+            if temp in edges.keys():
+                edges[temp].sort()
+                for node in edges[temp]:
+                    inEdges[node] -= 1
+                    if not visited[node] and inEdges[node] == 0:
+                        heappush(minHeap, node)
+                        visited[node] = 1
+
+        return result
 
 
 sol = Solution()
