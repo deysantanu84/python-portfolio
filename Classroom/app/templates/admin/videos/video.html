@@ -1,0 +1,30 @@
+<!-- app/templates/admin/videos/video.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}
+    {% if add_video %}
+        Add Video
+    {% else %}
+        Edit Video
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_video %}
+                <h1>Add Video</h1>
+            {% else %}
+                <h1>Edit Video</h1>
+            {% endif %}
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}'
