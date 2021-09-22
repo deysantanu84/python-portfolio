@@ -31,7 +31,7 @@ class Solution:
                 return -1
 
             rottingGrid = {(x + dx, y + dy) for x, y in rottingGrid
-                       for dx, dy in Solution.moves if (x + dx, y + dy) in freshGrid}
+                           for dx, dy in Solution.moves if (x + dx, y + dy) in freshGrid}
             freshGrid -= rottingGrid
             result += 1
 
