@@ -1,5 +1,5 @@
 # Find the lowest common ancestor in an unordered binary tree A given two values B and C in the tree.
-# Lowest common ancestor : the lowest common ancestor (LCA) of two nodes and w in a tree or
+# Lowest common ancestor : the lowest common ancestor (LCA) of two nodes v and w in a tree or
 # directed acyclic graph (DAG) is the lowest (i.e. deepest) node that has both v and w as descendants.
 # 1 <= size of tree <= 100000
 # 1 <= B, C <= 10^9

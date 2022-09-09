@@ -3,6 +3,9 @@
 # 1 <= A <= 36
 # The first and the only argument contains an integer A, the number of steps.
 # Return an integer, representing the number of ways to reach the top.
+
+# Recurrence relation is same as fibonacci series
+# Bottom-up (Iterative) solution
 class Solution:
     # @param A : integer
     # @return an integer

@@ -9,6 +9,7 @@ class TreeNode:
 		self.left = None
 		self.right = None
 
+
 class Solution:
 	# @param A : root node of tree
 	# @return a list of list of integers

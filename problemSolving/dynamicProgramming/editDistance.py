@@ -26,9 +26,9 @@ class Solution:
                     distanceMatrix[i][j] = distanceMatrix[i - 1][j - 1]
 
                 else:
-                    distanceMatrix[i][j] = min(distanceMatrix[i - 1][j - 1],
-                                               distanceMatrix[i - 1][j],
-                                               distanceMatrix[i][j - 1]) + 1
+                    distanceMatrix[i][j] = min(distanceMatrix[i - 1][j - 1],  # replace
+                                               distanceMatrix[i - 1][j],  # delete
+                                               distanceMatrix[i][j - 1]) + 1  # insert
 
         return distanceMatrix[-1][-1]
 

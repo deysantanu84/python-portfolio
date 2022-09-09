@@ -6,6 +6,9 @@
 # 0 <= A <= 44
 # First and only argument is an integer A.
 # Return an integer denoting the Ath Fibonacci number.
+
+# Bottom up (Iterative)
+# Optimal solution
 def fibonacci(A):
     fibList = [0, 1]
 
@@ -15,6 +18,25 @@ def fibonacci(A):
     return fibList[A]
 
 
+# Top down (Recursive)
+# Not optimal for A > 35
+def fibonacciTD(A):
+    fibDict = {0: 0, 1: 1, 2: 1, 3: 2}
+
+    if A in fibDict.keys():
+        return fibDict[A]
+
+    fibDict[A] = fibonacciTD(A - 1) + fibonacciTD(A - 2)
+
+    return fibDict[A]
+
+
 print(fibonacci(4))  # 3
 print(fibonacci(6))  # 8
 print(fibonacci(44))  # 701408733
+print(fibonacciTD(4))  # 3
+print(fibonacciTD(6))  # 8
+print(fibonacciTD(10))  # 55
+print(fibonacciTD(20))  # 6765
+print(fibonacciTD(30))  # 832040
+print(fibonacciTD(35))  # 9227465

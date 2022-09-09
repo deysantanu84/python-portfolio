@@ -4,19 +4,23 @@
 # 1 <= A <= 10^5
 # Given only argument A of type Integer, number of people in Danceland.
 # Return an integer denoting the number of ways people of Danceland can party.
+
+# Recurrence relation: f(i) = f(i - 1) + (i - 1) * f(i - 2)
+# Bottom-up (Iterative) solution
 class Solution:
     # @param A : integer
     # @return an integer
     def solve(self, A):
-        resultList = [0 for i in range(A + 1)]
+        mod = 10003
+        resultList = [0 for _ in range(A + 1)]
 
         for i in range(A + 1):
             if i <= 2:
-                resultList[i] = i % 10003
+                resultList[i] = i % mod
             else:
-                resultList[i] = (resultList[i - 1] + (i - 1) * resultList[i - 2]) % 10003
+                resultList[i] = (resultList[i - 1] + (i - 1) * resultList[i - 2]) % mod
 
-        return resultList[A] % 10003
+        return resultList[A] % mod
 
 
 sol = Solution()

@@ -8,7 +8,6 @@
 # 1 <= Value of node <= 10^9
 # The only argument given is the root pointer of the tree, A.
 # Return the head pointer of the converted circular doubly linked list.
-# Definition for a  binary tree node
 import sys
 sys.setrecursionlimit(10**6)
 
