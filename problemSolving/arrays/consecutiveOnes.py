@@ -15,7 +15,7 @@ def longestConsecutiveOnes(A):
         else:
             count = 0
         left[i + 1] = count
-    print(left)
+    # print(left)
 
     count = 0
     for i in range(len(A) - 1, -1, -1):
@@ -24,7 +24,7 @@ def longestConsecutiveOnes(A):
         else:
             count = 0
         right[i] = count
-    print(right)
+    # print(right)
 
     totalOnes = 0
     for i in range(len(A)):

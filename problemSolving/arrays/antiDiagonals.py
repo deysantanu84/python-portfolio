@@ -15,9 +15,8 @@
 def antiDiagonals(A):
     columns = len(A)
     rows = 2 * len(A) - 1
-    resultArray = []
-    for row in range(rows):
-        resultArray.append([])
+    resultArray = [[] for _ in range(rows)]
+
     for m in range(columns):
         for n in range(columns):
             resultArray[m+n].append(A[m][n])
