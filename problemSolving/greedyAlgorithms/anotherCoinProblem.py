@@ -12,7 +12,8 @@ from math import log
 
 
 class Solution:
-    def highestPowerOf5(self, A):
+    @staticmethod
+    def highestPowerOf5(A):
         temp = int(log(A, 5))
         return 5 ** temp
 
@@ -24,6 +25,7 @@ class Solution:
         highest = self.highestPowerOf5(A)
 
         i = 0
+        # populate list with each denomination possible up to the highest power of 5
         while True:
             temp = 5 ** i
             if temp <= highest:
@@ -35,7 +37,9 @@ class Solution:
 
         N = len(denominations)
         i = N - 1
+        # loop over each denomination from highest to lowest
         while i >= 0:
+            # number of coins of current denomination
             while A >= denominations[i]:
                 A -= denominations[i]
                 result += 1

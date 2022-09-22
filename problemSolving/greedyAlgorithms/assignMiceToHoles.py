@@ -5,7 +5,7 @@
 # or move one step left from x to x − 1. Any of these moves consumes 1 minute.
 # Assign mice to holes so that the time when the last mouse gets inside a hole is minimized.
 # 1 <= N <= 10^5
-# -109 <= A[i], B[i] <= 10^9
+# -10^9 <= A[i], B[i] <= 10^9
 # First argument is an integer array A.
 # Second argument is an integer array B.
 # Return an integer denoting the minimum time when the last mouse gets inside the holes.
@@ -13,7 +13,8 @@ class Solution:
 	# @param A : list of integers
 	# @param B : list of integers
 	# @return an integer
-	def mice(self, A, B):
+	@staticmethod
+	def mice(A, B):
 		result = 0
 		N = len(A)
 		M = len(B)
